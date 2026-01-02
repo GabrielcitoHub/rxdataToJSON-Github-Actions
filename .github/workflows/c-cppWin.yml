@@ -1,0 +1,25 @@
+name: Build rxdataToJSON Windows
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Configure
+      run: cmake -DCMAKE_BUILD_TYPE=Release .
+
+    - name: Build
+      run: cmake --build . --config Release
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: rxdataToJSON-windows
+        path: |
+          **/*.exe
