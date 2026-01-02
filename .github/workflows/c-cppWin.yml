@@ -21,6 +21,9 @@ jobs:
     - name: Build
       run: cmake --build build
 
+    - name: Debug build output
+      run: dir build /s
+
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
