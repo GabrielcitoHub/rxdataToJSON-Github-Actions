@@ -16,7 +16,7 @@ jobs:
       run: choco install mingw -y
 
     - name: Configure (CMake + MinGW)
-      run: cmake -S . -B build -G "MinGW Makefiles"
+      run: cmake -DCMAKE_CXX_FLAGS="-static -static-libgcc -static-libstdc++" -S . -B build -G "MinGW Makefiles"
 
     - name: Build
       run: cmake --build build
