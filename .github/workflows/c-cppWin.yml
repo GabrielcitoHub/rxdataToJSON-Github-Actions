@@ -1,4 +1,4 @@
-name: Build rxdataToJSON Windows
+name: Build rxdataToJSON Windows (MinGW)
 
 on:
   push:
@@ -12,14 +12,17 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Configure (CMake + MSVC x64)
-      run: cmake -S . -B build -A x64
+    - name: Install MinGW
+      run: choco install mingw -y
 
-    - name: Build (Release)
-      run: cmake --build build --config Release
+    - name: Configure (CMake + MinGW)
+      run: cmake -S . -B build -G "MinGW Makefiles"
+
+    - name: Build
+      run: cmake --build build
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: rxdataToJSON-windows-x64
-        path: build/Release/*.exe
+        name: rxdataToJSON-windows-mingw
+        path: build/*.exe
