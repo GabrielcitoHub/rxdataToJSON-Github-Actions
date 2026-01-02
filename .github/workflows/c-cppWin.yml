@@ -22,7 +22,7 @@ jobs:
       run: cmake --build build
 
     - name: Debug build output
-      run: dir build /s
+      run: Get-ChildItem -Recurse build
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
