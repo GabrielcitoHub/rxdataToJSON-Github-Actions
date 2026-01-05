@@ -5,12 +5,13 @@
 #include <vector>
 
 #include <cmath>
+#include <limits>
 
 #include "util/types.h"
 
 #ifndef DOUBLE_INF
-#define DOUBLE_INF  double(__DEC64_MAX__)
-#define DOUBLE_NINF double(__DEC64_MIN__)
+static constexpr double DOUBLE_INF = std::numeric_limits<double>::infinity();
+static constexpr double DOUBLE_NINF = -std::numeric_limits<double>::infinity();
 #endif
 
 class Reader
