@@ -214,10 +214,17 @@ int main(int argc, const char *argv[])
 
             std::cout << "[DEBUG] Opening output file...\n";
 
-            outfile.open(
-              "./Scripts/" + std::any_cast<std::string &>(script[1]) +
-                ".rb",    // Guessing scripts are normal Ruby Scripts
-              (std::ios_base::openmode)(std::ios::binary | std::ios::beg));
+            std::string scriptName =
+                std::any_cast<std::string &>(script[1]);
+
+            std::string outputPath = "./Scripts/" + scriptName + ".rb"; // Guessing scripts are normal Ruby Scripts
+
+            std::cout << "[DEBUG] Attempting path: " << outputPath << '\n';
+
+            outfile.open(outputPath, std::ios::out | std::ios::binary);
+
+            std::cout << "[DEBUG] Open call returned\n";
+            std::cout << "[DEBUG] File opened: " << outfile.is_open() << '\n';
 
             auto &script_data = std::any_cast<std::string &>(script[2]);
 
