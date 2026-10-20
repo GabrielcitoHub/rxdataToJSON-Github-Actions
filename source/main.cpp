@@ -149,6 +149,10 @@ int main(int argc, const char *argv[])
         std::filesystem::remove_all("./Scripts");
         std::filesystem::create_directory("./Scripts");
 
+        std::cout << "Export directory: "
+          << std::filesystem::absolute("./Scripts").string()
+          << '\n';
+
         auto &array = std::any_cast<std::vector<std::any> &>(parse);
 
         std::string deflate_buffer;
@@ -196,7 +200,13 @@ int main(int argc, const char *argv[])
         std::cout << "Converting to JSON\n";
         any_to_json(parse, j);
 
-        outfile.open(std::string(argv[1]) + ".json");
+        std::string outputPath = std::string(argv[1]) + ".json";
+
+        std::cout << "Export file: "
+                << std::filesystem::absolute(outputPath).string()
+                << '\n';
+
+        outfile.open(outputPath);
         outfile.write(j.data(), j.size());
         outfile.close();
     }
