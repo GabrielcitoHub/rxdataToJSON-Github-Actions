@@ -18,6 +18,11 @@ jobs:
     - name: Configure (CMake + MinGW)
       run: cmake -DCMAKE_CXX_FLAGS="-static -static-libgcc -static-libstdc++" -S . -B build -G "MinGW Makefiles"
 
+    - name: Check compiler and build settings
+      run: |
+        g++ --version
+        cmake -LA -N build
+
     - name: Build
       run: cmake --build build
 
