@@ -16,15 +16,15 @@ jobs:
       run: choco install mingw -y
 
     - name: Configure (CMake + MinGW)
-      run: cmake -DWITH_AVX2=OFF -DCMAKE_CXX_FLAGS="-static -static-libgcc -static-libstdc++" -S . -B build -G "MinGW Makefiles"
+      run: cmake -DWITH_AVX2=OFF -DCMAKE_CXX_FLAGS="-march=x86-64 -static -static-libgcc -static-libstdc++" -S . -B build -G "MinGW Makefiles"
 
     - name: Check compiler and build settings
-      run: |
+      run:
         g++ --version
         cmake -LA -N build
 
     - name: Build
-      run: cmake --build build --verbose
+      run: cmake --build build --clean-first --verbose
 
     - name: Debug build output
       run: Get-ChildItem -Recurse build
