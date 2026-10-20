@@ -245,20 +245,14 @@ int main(int argc, const char *argv[])
                 deflate_buffer.resize(deflate_buffer.size() * 2);
             }
 
-            std::cout << "Script: "
+            std::cout << "[DEBUG] Script name: "
                     << std::any_cast<std::string &>(script[1]) << '\n';
-            std::cout << "Compressed size: " << script_data.size() << '\n';
-            std::cout << "Decompression result: " << zng_error << '\n';
-            std::cout << "Decompressed size: " << deflate_len << '\n';
-
-            std::cerr << "[DEBUG] Script name: "
-                    << std::any_cast<std::string &>(script[1]) << '\n';
-            std::cerr << "[DEBUG] Compressed size: "
+            std::cout << "[DEBUG] Compressed size: "
                     << script_data.size() << '\n';
-            std::cerr << "[DEBUG] Decompressed size: "
-                    << deflate_len << '\n';
-            std::cerr << "[DEBUG] Decompression result: "
+            std::cout << "[DEBUG] Decompression result: "
                     << zng_error << '\n';
+            std::cout << "[DEBUG] Decompressed size: "
+                    << deflate_len << '\n';
 
             outfile.write(deflate_buffer.data(), deflate_len);
             outfile.close();

@@ -22,10 +22,9 @@ std::any Reader::parse()
     if (file->eof())
         std::__throw_ios_failure("Unexpected EOF");
 
-    // Don't comment, breaks everything if commented
-    std::cerr << "[DEBUG] Reading type: "
+    /* std::cerr << "[DEBUG] Reading type: "
             << static_cast<char>(type)
-            << " (" << type << ")\n";
+            << " (" << type << ")\n"; */
 
     auto ios_failure = [](std::string err) {
         std::__throw_ios_failure(err.c_str());
