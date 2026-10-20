@@ -16,7 +16,7 @@ jobs:
       run: choco install mingw -y
 
     - name: Configure (CMake + MinGW)
-      run: cmake -DWITH_AVX2=OFF -DCMAKE_CXX_FLAGS="-march=x86-64 -static -static-libgcc -static-libstdc++" -S . -B build -G "MinGW Makefiles"
+      run: cmake -DWITH_AVX2=OFF -DWITH_AVX512=OFF -DWITH_AVX512VNNI=OFF -DWITH_AVX2VNNI=OFF -DWITH_VPCLMULQDQ=OFF -DWITH_PCLMULQDQ=OFF -DWITH_SSE42=OFF -DWITH_SSE41=OFF -DWITH_SSSE3=OFF -DCMAKE_C_FLAGS="-march=x86-64" -DCMAKE_CXX_FLAGS="-march=x86-64 -static -static-libgcc -static-libstdc++" -S . -B build -G "MinGW Makefiles"
 
     - name: Check compiler and build settings
       run:
