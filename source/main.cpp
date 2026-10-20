@@ -155,9 +155,11 @@ int main(int argc, const char *argv[])
     
     file.close();
 
+    std::string_view inputPath(argv[1]);
+
     if (
-      std::string_view(argv[1] + (strlen(argv[1]) - 14), 14).compare("Scripts.rxdata") == 0 ||
-      std::string_view(argv[1] + (strlen(argv[1]) - 15), 15).compare("xScripts.rxdata") == 0)
+        inputPath.ends_with("Scripts.rxdata") ||
+        inputPath.ends_with("Scripts.rvdata"))
     {
         std::cout << "Detected Scripts.rxdata. Extracting Scripts.\n";
         std::filesystem::remove_all("./Scripts");
