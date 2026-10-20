@@ -18,7 +18,13 @@ Reader::Reader(std::ifstream &file)
 std::any Reader::parse()
 {
     int type = file->get();
-    if (file->eof()) std::__throw_ios_failure("Unexpected EOF");
+
+    if (file->eof())
+        std::__throw_ios_failure("Unexpected EOF");
+
+    std::cerr << "[DEBUG] Reading type: "
+            << static_cast<char>(type)
+            << " (" << type << ")\n";
 
     auto ios_failure = [](std::string err) {
         std::__throw_ios_failure(err.c_str());
