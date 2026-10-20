@@ -208,6 +208,12 @@ int main(int argc, const char *argv[])
                   (u8 *) script_data.data(),
                   script_data.size());
 
+                std::cout << "Script: "
+                        << std::any_cast<std::string &>(script[1]) << '\n';
+                std::cout << "Compressed size: " << script_data.size() << '\n';
+                std::cout << "Decompression result: " << zng_error << '\n';
+                std::cout << "Decompressed size: " << deflate_len << '\n';
+
                 if (zng_error != Z_BUF_ERROR) break;
 
                 deflate_buffer.resize(deflate_buffer.size() * 2);
