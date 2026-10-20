@@ -14,6 +14,10 @@
 #include "reader/types/table.h"
 #include "reader/types/tone.h"
 
+#include <string_view>
+#include <fstream>
+#include <any>
+
 namespace fs = std::filesystem;
 
 void any_to_json(std::any &any, std::string &j)
@@ -134,6 +138,9 @@ int main(int argc, const char *argv[])
     }
 
     std::cout << "Parsing...\n" << std::flush;
+
+    std::string j;
+    std::ofstream outfile;
 
     Reader reader(file);
 
