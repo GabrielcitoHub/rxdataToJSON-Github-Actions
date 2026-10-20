@@ -22,9 +22,9 @@ std::any Reader::parse()
     if (file->eof())
         std::__throw_ios_failure("Unexpected EOF");
 
-    std::cerr << "[DEBUG] Reading type: "
+    /* std::cerr << "[DEBUG] Reading type: "
             << static_cast<char>(type)
-            << " (" << type << ")\n";
+            << " (" << type << ")\n"; */
 
     auto ios_failure = [](std::string err) {
         std::__throw_ios_failure(err.c_str());
@@ -137,24 +137,24 @@ std::any Reader::parse()
     }
     case '"':    // String
     {
-        std::cerr << "[DEBUG] Reading string length...\n";
+        // std::cerr << "[DEBUG] Reading string length...\n";
 
         auto length = read_fixnum();
 
-        std::cerr << "[DEBUG] String length: " << length << '\n';
+        // std::cerr << "[DEBUG] String length: " << length << '\n';
 
         if (length < 0 || length > 100000000)
             ios_failure("Invalid string length: " + std::to_string(length));
 
-        std::cerr << "[DEBUG] About to allocate string\n";
+        // std::cerr << "[DEBUG] About to allocate string\n";
 
         auto str = std::string(length, '0');
 
-        std::cerr << "[DEBUG] String allocated\n";
+        // std::cerr << "[DEBUG] String allocated\n";
 
         file->read(str.data(), str.length());
 
-        std::cerr << "[DEBUG] String read complete\n";
+        // std::cerr << "[DEBUG] String read complete\n";
 
         object_cache.push_back(str);
         return str;

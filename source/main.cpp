@@ -206,6 +206,14 @@ int main(int argc, const char *argv[])
                         << " type: " << script[i].type().name() << '\n';
             }
 
+            std::cout << "[DEBUG] Script name: "
+                    << std::any_cast<std::string &>(script[1]) << '\n';
+
+            std::cout << "[DEBUG] Compressed data size: "
+                    << std::any_cast<std::string &>(script[2]).size() << '\n';
+
+            std::cout << "[DEBUG] Opening output file...\n";
+
             outfile.open(
               "./Scripts/" + std::any_cast<std::string &>(script[1]) +
                 ".rb",    // Guessing scripts are normal Ruby Scripts
