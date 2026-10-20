@@ -13,7 +13,8 @@ if(NOT zlib_ng_POPULATED)
 	# Set custom variables, policies, etc.
 	set(ZLIB_ENABLE_TESTS OFF)
 	set(ZLIB_COMPAT OFF)
-	set(WITH_NATIVE_INSTRUCTIONS ON)
+	set(WITH_NATIVE_INSTRUCTIONS OFF)
+	set(WITH_RUNTIME_CPU_DETECTION ON)
 
 	add_subdirectory(${zlib_ng_SOURCE_DIR} ${zlib_ng_BINARY_DIR})
 endif()
