@@ -146,6 +146,9 @@ int main(int argc, const char *argv[])
 
     std::cerr << "[DEBUG] Starting reader.parse()\n";
 
+    std::cerr << "[DEBUG] Stream position: " << file.tellg() << '\n';
+    std::cerr << "[DEBUG] Stream good: " << file.good() << '\n';
+
     auto parse = reader.parse();
 
     std::cerr << "[DEBUG] reader.parse() finished\n";
