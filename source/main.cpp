@@ -133,12 +133,16 @@ int main(int argc, const char *argv[])
         std::__throw_invalid_argument(err.c_str());
     }
 
-    std::cout << "Parsing\n";
+    std::cout << "Parsing...\n" << std::flush;
 
-    std::string   j;
-    std::ofstream outfile;
-    Reader        reader(file);
-    auto          parse = reader.parse();
+    Reader reader(file);
+
+    std::cerr << "[DEBUG] Starting reader.parse()\n";
+
+    auto parse = reader.parse();
+
+    std::cerr << "[DEBUG] reader.parse() finished\n";
+    
     file.close();
 
     if (
