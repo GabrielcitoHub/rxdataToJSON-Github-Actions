@@ -137,8 +137,20 @@ std::any Reader::parse()
     }
     case '"':    // String
     {
-        auto str = std::string(read_fixnum(), '0');
+        std::cerr << "[DEBUG] Reading string length...\n";
+
+        auto length = read_fixnum();
+
+        std::cerr << "[DEBUG] String length: " << length << '\n';
+
+        if (length < 0 || length > 100000000)
+            ios_failure("Invalid string length: " + std::to_string(length));
+
+        auto str = std::string(length, '0');
+
         file->read(str.data(), str.length());
+
+        std::cerr << "[DEBUG] String read complete\n";
 
         object_cache.push_back(str);
         return str;
