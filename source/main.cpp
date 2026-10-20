@@ -188,16 +188,23 @@ int main(int argc, const char *argv[])
         size_t deflate_len;
         i32    zng_error = Z_OK;
 
-        for (auto any : array)
-        {
-            std::cout << "[DEBUG] Processing script entry\n";
-            
-            if (any.type() != typeid(std::vector<std::any>))
-                std::__throw_invalid_argument("Script is not Valid!");
+        for (auto any : array) {
+            std::cout << "[DEBUG] Entry type: "
+                    << any.type().name() << '\n';
+
+            if (any.type() != typeid(std::vector<std::any>)) {
+                std::cout << "[DEBUG] Entry is not a vector\n";
+                continue;
+            }
 
             auto &script = std::any_cast<std::vector<std::any> &>(any);
-            if (script[1].type() != typeid(std::string) || script[2].type() != typeid(std::string))
-                std::__throw_invalid_argument("Script is not Valid!");
+
+            std::cout << "[DEBUG] Entry elements: " << script.size() << '\n';
+
+            for (size_t i = 0; i < script.size(); ++i) {
+                std::cout << "[DEBUG] Element " << i
+                        << " type: " << script[i].type().name() << '\n';
+            }
 
             outfile.open(
               "./Scripts/" + std::any_cast<std::string &>(script[1]) +
