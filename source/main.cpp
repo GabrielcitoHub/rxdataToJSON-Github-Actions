@@ -18,6 +18,8 @@
 #include <fstream>
 #include <any>
 
+#include <cstdio>
+
 namespace fs = std::filesystem;
 
 void any_to_json(std::any &any, std::string &j)
@@ -216,6 +218,12 @@ int main(int argc, const char *argv[])
 
             std::string scriptName =
                 std::any_cast<std::string &>(script[1]);
+
+            std::cout << "[DEBUG] Script name bytes (hex):";
+                for (unsigned char c : scriptName) {
+                    std::printf(" %02X", static_cast<unsigned int>(c));
+                }
+            std::printf("\n");
 
             std::string outputPath = "./Scripts/" + scriptName + ".rb"; // Guessing scripts are normal Ruby Scripts
 
