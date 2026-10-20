@@ -228,19 +228,23 @@ int main(int argc, const char *argv[])
 
             auto &script_data = std::any_cast<std::string &>(script[2]);
 
-            while (true)
-            {
+            while (true) {
                 deflate_len = deflate_buffer.size();
-                zng_error   = zng_uncompress(
-                  (u8 *) deflate_buffer.data(),
-                  &deflate_len,
-                  (u8 *) script_data.data(),
-                  script_data.size());
 
-                std::cout << "[DEBUG] zng_error = " << zng_error << '\n';
-                std::cout << "[DEBUG] deflate_len = " << deflate_len << '\n';
+                std::cout << "[DEBUG] Calling zng_uncompress...\n";
 
-                if (zng_error != Z_BUF_ERROR) break;
+                zng_error = zng_uncompress(
+                    (u8*)deflate_buffer.data(),
+                    &deflate_len,
+                    (u8*)script_data.data(),
+                    script_data.size()
+                );
+
+                std::cout << "[DEBUG] zng_uncompress returned: "
+                        << zng_error << '\n';
+
+                if (zng_error != Z_BUF_ERROR)
+                    break;
 
                 deflate_buffer.resize(deflate_buffer.size() * 2);
             }
