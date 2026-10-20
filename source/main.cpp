@@ -158,8 +158,15 @@ int main(int argc, const char *argv[])
     std::string_view inputPath(argv[1]);
 
     if (
-        inputPath.ends_with("Scripts.rxdata") ||
-        inputPath.ends_with("Scripts.rvdata"))
+        inputPath.size() >= 14 &&
+        inputPath.compare(inputPath.size() - 14, 14, "Scripts.rxdata") == 0
+        ||
+        inputPath.size() >= 15 &&
+        inputPath.compare(inputPath.size() - 15, 15, "xScripts.rxdata") == 0
+        ||
+        inputPath.size() >= 14 &&
+        inputPath.compare(inputPath.size() - 14, 14, "Scripts.rvdata") == 0
+    )
     {
         std::cout << "Detected Scripts.rxdata. Extracting Scripts.\n";
         std::filesystem::remove_all("./Scripts");
