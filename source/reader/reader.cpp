@@ -146,7 +146,11 @@ std::any Reader::parse()
         if (length < 0 || length > 100000000)
             ios_failure("Invalid string length: " + std::to_string(length));
 
+        std::cerr << "[DEBUG] About to allocate string\n";
+
         auto str = std::string(length, '0');
+
+        std::cerr << "[DEBUG] String allocated\n";
 
         file->read(str.data(), str.length());
 
