@@ -176,15 +176,22 @@ int main(int argc, const char *argv[])
           << std::filesystem::absolute("./Scripts").string()
           << '\n';
 
+        std::cout << "[DEBUG] Entered script extraction branch\n";
+
         auto &array = std::any_cast<std::vector<std::any> &>(parse);
+
+        std::cout << "[DEBUG] Script entries: " << array.size() << '\n';
 
         std::string deflate_buffer;
         deflate_buffer.resize(0x1000);
+
         size_t deflate_len;
         i32    zng_error = Z_OK;
 
         for (auto any : array)
         {
+            std::cout << "[DEBUG] Processing script entry\n";
+            
             if (any.type() != typeid(std::vector<std::any>))
                 std::__throw_invalid_argument("Script is not Valid!");
 
