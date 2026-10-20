@@ -237,6 +237,9 @@ int main(int argc, const char *argv[])
                   (u8 *) script_data.data(),
                   script_data.size());
 
+                std::cout << "[DEBUG] zng_error = " << zng_error << '\n';
+                std::cout << "[DEBUG] deflate_len = " << deflate_len << '\n';
+
                 if (zng_error != Z_BUF_ERROR) break;
 
                 deflate_buffer.resize(deflate_buffer.size() * 2);
