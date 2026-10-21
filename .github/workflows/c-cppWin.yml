@@ -24,7 +24,7 @@ jobs:
         cmake -LA -N build
 
     - name: Build
-      run: cmake --build build --clean-first --verbose
+      run: cmake --build build --clean-first
 
     - name: Debug build output
       run: Get-ChildItem -Recurse build

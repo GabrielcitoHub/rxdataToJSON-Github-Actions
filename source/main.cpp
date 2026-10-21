@@ -269,7 +269,7 @@ int main(int argc, const char *argv[])
 
             outfile.write(deflate_buffer.data(), deflate_len);
             outfile.close();
-            std::cout << "Extracted Script '" << std::any_cast<std::string &>(script[1]) << "'\n";
+            std::cout << "Extracted Script '" << std::any_cast<std::string &>(script[1]) << "'";
         }
     }
     else
