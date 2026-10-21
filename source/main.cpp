@@ -229,7 +229,8 @@ int main(int argc, const char *argv[])
 
             std::cout << "[DEBUG] Attempting path: " << outputPath << '\n';
 
-            outfile.open(outputPath, std::ios::out | std::ios::binary);
+            outfile.open(std::filesystem::u8path(outputPath),
+                std::ios::out | std::ios::binary);
 
             std::cout << "[DEBUG] Open call returned\n";
             std::cout << "[DEBUG] File opened: " << outfile.is_open() << '\n';
