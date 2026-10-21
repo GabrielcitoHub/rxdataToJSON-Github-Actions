@@ -170,7 +170,7 @@ int main(int argc, const char *argv[])
         inputPath.compare(inputPath.size() - 14, 14, "Scripts.rvdata") == 0
     )
     {
-        std::cout << "Detected Scripts.rxdata. Extracting Scripts.\n";
+        std::cout << "Detected Scripts.rxdata/xScripts.rxdata/Scripts.rvdata. Extracting Scripts.\n";
         std::filesystem::remove_all("./Scripts");
         std::filesystem::create_directory("./Scripts");
 
@@ -223,7 +223,7 @@ int main(int argc, const char *argv[])
             //     for (unsigned char c : scriptName) {
             //         std::printf(" %02X", static_cast<unsigned int>(c));
             //     }
-            std::printf("\n");
+            // std::printf("\n");
 
             std::string outputPath = "./Scripts/" + scriptName + ".rb"; // Guessing scripts are normal Ruby Scripts
 
@@ -269,7 +269,7 @@ int main(int argc, const char *argv[])
 
             outfile.write(deflate_buffer.data(), deflate_len);
             outfile.close();
-            std::cout << "Extracted Script '" << std::any_cast<std::string &>(script[1]) << "'";
+            std::cout << "Extracted Script '" << outputPath << "'\n";
         }
     }
     else
