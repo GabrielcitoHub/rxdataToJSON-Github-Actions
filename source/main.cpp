@@ -178,11 +178,11 @@ int main(int argc, const char *argv[])
           << std::filesystem::absolute("./Scripts").string()
           << '\n';
 
-        std::cout << "[DEBUG] Entered script extraction branch\n";
+        // std::cout << "[DEBUG] Entered script extraction branch\n";
 
         auto &array = std::any_cast<std::vector<std::any> &>(parse);
 
-        std::cout << "[DEBUG] Script entries: " << array.size() << '\n';
+        // std::cout << "[DEBUG] Script entries: " << array.size() << '\n';
 
         std::string deflate_buffer;
         deflate_buffer.resize(0x1000);
@@ -191,56 +191,56 @@ int main(int argc, const char *argv[])
         i32    zng_error = Z_OK;
 
         for (auto any : array) {
-            std::cout << "[DEBUG] Entry type: "
-                    << any.type().name() << '\n';
+            // std::cout << "[DEBUG] Entry type: "
+            //         << any.type().name() << '\n';
 
             if (any.type() != typeid(std::vector<std::any>)) {
-                std::cout << "[DEBUG] Entry is not a vector\n";
+                // std::cout << "[DEBUG] Entry is not a vector!\n";
                 continue;
             }
 
             auto &script = std::any_cast<std::vector<std::any> &>(any);
 
-            std::cout << "[DEBUG] Entry elements: " << script.size() << '\n';
+            // std::cout << "[DEBUG] Entry elements: " << script.size() << '\n';
 
-            for (size_t i = 0; i < script.size(); ++i) {
-                std::cout << "[DEBUG] Element " << i
-                        << " type: " << script[i].type().name() << '\n';
-            }
+            // for (size_t i = 0; i < script.size(); ++i) {
+            //     std::cout << "[DEBUG] Element " << i
+            //             << " type: " << script[i].type().name() << '\n';
+            // }
 
-            std::cout << "[DEBUG] Script name: "
-                    << std::any_cast<std::string &>(script[1]) << '\n';
+            // std::cout << "[DEBUG] Script name: "
+            //         << std::any_cast<std::string &>(script[1]) << '\n';
 
-            std::cout << "[DEBUG] Compressed data size: "
-                    << std::any_cast<std::string &>(script[2]).size() << '\n';
+            // std::cout << "[DEBUG] Compressed data size: "
+            //         << std::any_cast<std::string &>(script[2]).size() << '\n';
 
-            std::cout << "[DEBUG] Opening output file...\n";
+            // std::cout << "[DEBUG] Opening output file...\n";
 
             std::string scriptName =
                 std::any_cast<std::string &>(script[1]);
 
-            std::cout << "[DEBUG] Script name bytes (hex):";
-                for (unsigned char c : scriptName) {
-                    std::printf(" %02X", static_cast<unsigned int>(c));
-                }
+            // std::cout << "[DEBUG] Script name bytes (hex):";
+            //     for (unsigned char c : scriptName) {
+            //         std::printf(" %02X", static_cast<unsigned int>(c));
+            //     }
             std::printf("\n");
 
             std::string outputPath = "./Scripts/" + scriptName + ".rb"; // Guessing scripts are normal Ruby Scripts
 
-            std::cout << "[DEBUG] Attempting path: " << outputPath << '\n';
+            // std::cout << "[DEBUG] Attempting path: " << outputPath << '\n';
 
             outfile.open(std::filesystem::u8path(outputPath),
                 std::ios::out | std::ios::binary);
 
-            std::cout << "[DEBUG] Open call returned\n";
-            std::cout << "[DEBUG] File opened: " << outfile.is_open() << '\n';
+            // std::cout << "[DEBUG] Open call returned\n";
+            // std::cout << "[DEBUG] File opened: " << outfile.is_open() << '\n';
 
             auto &script_data = std::any_cast<std::string &>(script[2]);
 
             while (true) {
                 deflate_len = deflate_buffer.size();
 
-                std::cout << "[DEBUG] Calling zng_uncompress...\n";
+                // std::cout << "[DEBUG] Calling zng_uncompress...\n";
 
                 zng_error = zng_uncompress(
                     (u8*)deflate_buffer.data(),
@@ -249,8 +249,8 @@ int main(int argc, const char *argv[])
                     script_data.size()
                 );
 
-                std::cout << "[DEBUG] zng_uncompress returned: "
-                        << zng_error << '\n';
+                // std::cout << "[DEBUG] zng_uncompress returned: "
+                //         << zng_error << '\n';
 
                 if (zng_error != Z_BUF_ERROR)
                     break;
@@ -258,14 +258,14 @@ int main(int argc, const char *argv[])
                 deflate_buffer.resize(deflate_buffer.size() * 2);
             }
 
-            std::cout << "[DEBUG] Script name: "
-                    << std::any_cast<std::string &>(script[1]) << '\n';
-            std::cout << "[DEBUG] Compressed size: "
-                    << script_data.size() << '\n';
-            std::cout << "[DEBUG] Decompression result: "
-                    << zng_error << '\n';
-            std::cout << "[DEBUG] Decompressed size: "
-                    << deflate_len << '\n';
+            // std::cout << "[DEBUG] Script name: "
+            //         << std::any_cast<std::string &>(script[1]) << '\n';
+            // std::cout << "[DEBUG] Compressed size: "
+            //         << script_data.size() << '\n';
+            // std::cout << "[DEBUG] Decompression result: "
+            //         << zng_error << '\n';
+            // std::cout << "[DEBUG] Decompressed size: "
+            //         << deflate_len << '\n';
 
             outfile.write(deflate_buffer.data(), deflate_len);
             outfile.close();
